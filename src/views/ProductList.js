@@ -14,6 +14,17 @@ export default function ProductList() {
     fetchData();
   }, []);
   {
-    return <div>ProductList</div>;
+    return (
+      <div>
+        <ul>
+          {data.map((item) => (
+            <li key={item.key}>
+              <img src={`https://static.ui.com/fingerprint/ui/icons/${item.icon.id}_257x257.png`} />
+              {item.line.name} {item.product.name}
+            </li>
+          ))}
+        </ul>
+      </div>
+    );
   }
 }
