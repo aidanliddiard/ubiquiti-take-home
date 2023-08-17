@@ -1,9 +1,11 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
 import { fetchDevices } from '../services/Products.js';
+import ProductCard from '../components/ProductCard.js';
 
 export default function ProductList() {
   const [data, setData] = useState([]);
+  const [toggle, setToggle] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -16,12 +18,17 @@ export default function ProductList() {
   {
     return (
       <div>
+        <button onClick={() => setToggle(!toggle)}>List</button>
         <ul>
           {data.map((item) => (
-            <li key={item.key}>
-              <img src={`https://static.ui.com/fingerprint/ui/icons/${item.icon.id}_257x257.png`} />
-              {item.line.name} {item.product.name}
-            </li>
+            <ProductCard
+              key={item.id}
+              toggle={toggle}
+              productLine={item.line.name}
+              productName={item.product.name}
+              imgId={item.icon.id}
+              imgDimensions={item.icon.resolutions[1]}
+            />
           ))}
         </ul>
       </div>
