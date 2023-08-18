@@ -1,7 +1,7 @@
 import React from 'react';
-
+import './ProductCard.css';
 export default function ProductCard({
-  key,
+  id,
   toggle,
   productLine,
   productName,
@@ -11,23 +11,23 @@ export default function ProductCard({
   return (
     <>
       {toggle && (
-        <div>
-          <li key={key}>
+        <div className="list">
+          <li key={id}>
             <img
-              src={`https://static.ui.com/fingerprint/ui/icons/${imgId}_${imgDimensions[0]}x${imgDimensions[1]}.png`}
+              src={`https://static.ui.com/fingerprint/ui/icons/${imgId}_${imgDimensions[0][0]}x${imgDimensions[0][1]}.png`}
             />
             {productName} {productLine}
           </li>
         </div>
       )}
       {!toggle && (
-        <div>
-          <li key={key}>
+        <div className="card">
+          <div className="img">
             <img
-              src={`https://static.ui.com/fingerprint/ui/icons/${imgId}_${imgDimensions[0]}x${imgDimensions[1]}.png`}
+              src={`https://static.ui.com/fingerprint/ui/icons/${imgId}_${imgDimensions[2][0]}x${imgDimensions[2][1]}.png`}
             />
-            <h2>{productName}</h2> <p>{productLine}</p>
-          </li>
+          </div>
+          <h2>{productName}</h2> <p>{productLine}</p>
         </div>
       )}
     </>

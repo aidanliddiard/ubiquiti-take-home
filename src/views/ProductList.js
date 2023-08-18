@@ -2,6 +2,7 @@ import React from 'react';
 import { useState, useEffect } from 'react';
 import { fetchDevices } from '../services/Products.js';
 import ProductCard from '../components/ProductCard.js';
+import './ProductList.css';
 
 export default function ProductList() {
   const [data, setData] = useState([]);
@@ -10,7 +11,6 @@ export default function ProductList() {
   useEffect(() => {
     const fetchData = async () => {
       const resp = await fetchDevices();
-      console.log(resp);
       setData(resp);
     };
     fetchData();
@@ -19,18 +19,19 @@ export default function ProductList() {
     return (
       <div>
         <button onClick={() => setToggle(!toggle)}>List</button>
-        <ul>
+        <div className={toggle ? 'list' : 'cards'}>
           {data.map((item) => (
             <ProductCard
               key={item.id}
+              id={item.id}
               toggle={toggle}
               productLine={item.line.name}
               productName={item.product.name}
               imgId={item.icon.id}
-              imgDimensions={item.icon.resolutions[1]}
+              imgDimensions={item.icon.resolutions}
             />
           ))}
-        </ul>
+        </div>
       </div>
     );
   }
