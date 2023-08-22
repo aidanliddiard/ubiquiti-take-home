@@ -1,7 +1,7 @@
 import React from 'react';
 import { useEffect } from 'react';
 import { useParams } from 'react-router-dom/cjs/react-router-dom.min.js';
-import { fetchDetails } from '../services/Products.js';
+import { fetchDeviceDetails } from '../services/Products.js';
 import { useState } from 'react';
 
 export default function ProductDetail() {
@@ -11,15 +11,14 @@ export default function ProductDetail() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const resp = await fetchDetails(productName);
-      console.log(resp[0].line);
+      const resp = await fetchDeviceDetails(productName);
+
+      //console.log(resp[0].line);
       setProduct(resp[0]);
       setLoading(false);
     };
     fetchData();
   }, [productName]);
-
-  console.log(product);
 
   if (loading) return <p>Loading...</p>;
   return (
