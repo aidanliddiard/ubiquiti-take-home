@@ -1,18 +1,14 @@
 import React from 'react';
 import { useState, useEffect } from 'react';
-import {
-  fetchDevices,
-  fetchProductLines,
-  filterDevicesByProductLine,
-} from '../services/Products.js';
+import { fetchProductLines, filterDevicesByProductLine } from '../services/Products.js';
 import ProductCard from '../components/ProductCard.js';
 import './ProductList.css';
 import { Link } from 'react-router-dom/cjs/react-router-dom.min.js';
-import ProductLineFilter from '../components/ProductLineFilter.js';
+import Toolbar from '../components/Toolbar.js';
 
 export default function ProductList() {
   const [data, setData] = useState([]);
-  const [toggle, setToggle] = useState(true);
+  const [gridView, setGridView] = useState(false);
   const [loading, setLoading] = useState(true);
   const [productLines, setProductLines] = useState([]);
   const [selectedProductLine, setSelectedProductLine] = useState('All');
@@ -29,22 +25,26 @@ export default function ProductList() {
   }, [selectedProductLine]);
   {
     if (loading) return <p>Loading...</p>;
-
     return (
       <div>
-        <ProductLineFilter
+        <Toolbar
           productLines={productLines}
           selectedProductLine={selectedProductLine}
           setSelectedProductLine={setSelectedProductLine}
+          setGridView={setGridView}
+          gridView={gridView}
         />
-        <button onClick={() => setToggle(!toggle)}>List</button>
-        <div className={toggle ? 'list' : 'cards'}>
+        <div className={gridView ? 'cards' : 'list'}>
           {data.map((item) => (
-            <Link key={item.id} to={`/${item.id}`}>
+            <Link
+              key={item.id}
+              to={`/${item.id}`}
+              style={{ textDecoration: 'none', color: 'black' }}
+            >
               <ProductCard
                 key={item.id}
                 id={item.id}
-                toggle={toggle}
+                gridView={gridView}
                 productLine={item.line.name}
                 productName={item.product.name}
                 imgId={item.icon.id}

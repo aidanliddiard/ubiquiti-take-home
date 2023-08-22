@@ -1,0 +1,12 @@
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  justify-content: flex-end;
+  padding-bottom: 15px;
+  padding-right: 15px;
+}
+.toolbar img {
+  width: 3vw;
+  height: 3vw;
+}

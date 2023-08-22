@@ -2,7 +2,7 @@ import React from 'react';
 import './ProductCard.css';
 export default function ProductCard({
   id,
-  toggle,
+  gridView,
   productLine,
   productName,
   imgId,
@@ -10,7 +10,7 @@ export default function ProductCard({
 }) {
   return (
     <>
-      {toggle && (
+      {!gridView && (
         <div className="list">
           <li key={id}>
             <img
@@ -20,7 +20,7 @@ export default function ProductCard({
           </li>
         </div>
       )}
-      {!toggle && (
+      {gridView && (
         <div className="card">
           <div className="img">
             <img
