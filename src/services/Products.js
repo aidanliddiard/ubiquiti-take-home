@@ -18,32 +18,14 @@ export async function fetchProductLines() {
   return [...new Set(products)];
 }
 
-export async function filterDevicesByProductLine(line, searchInput) {
+export async function filterDevicesByProductLine(line) {
   const resp = await fetch('https://static.ui.com/fingerprint/ui/public.json');
   const data = await resp.json();
-  if (searchInput.length > 0) {
-    data.devices.filter((obj) => {
-      const result = obj.product.name.match(searchInput);
-      console.log(result);
-      return result;
-    });
-    if (line === 'All') {
-      return data.devices;
-    }
-    if (line !== 'All') {
-      const result = data.devices.filter((obj) => obj.line.name === line);
-      return result;
-    }
+
+  if (line === 'All') {
+    return data.devices;
+  } else {
+    const result = data.devices.filter((obj) => obj.line.name === line);
+    return result;
   }
 }
-// export async function searchDevices(searchInput) {
-//   const resp = await fetch('https://static.ui.com/fingerprint/ui/public.json');
-//   const data = await resp.json();
-
-//   if (searchInput.length > 0) {
-//     data.devices.filter((obj) => {
-//       const result = obj.product.name.match(searchInput);
-//       console.log(result);
-//       return result;
-//     });
-//   }

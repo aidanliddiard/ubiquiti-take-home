@@ -16,17 +16,29 @@ export default function ProductList() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const lines = await fetchProductLines();
-      setProductLines(['All', ...lines]);
-      const resp = await filterDevicesByProductLine(selectedProductLine, searchInput);
-      console.log(resp);
-      setData(resp);
-      setLoading(false);
+      try {
+        const lines = await fetchProductLines();
+        setProductLines(['All', ...lines]);
+        const resp = await filterDevicesByProductLine(selectedProductLine);
+        setData(resp);
+        setLoading(false);
+      } catch (error) {
+        alert(error.message);
+      }
     };
     fetchData();
-  }, [selectedProductLine, searchInput]);
+  }, [selectedProductLine]);
   {
     if (loading) return <p>Loading...</p>;
+    const search = (arr) =>
+      arr.filter((data) => {
+        const name = data.product.name.toLowerCase();
+        if (name.includes(searchInput)) {
+          return data;
+        } else if (searchInput === '') {
+          return data;
+        }
+      });
     return (
       <div>
         <Toolbar
@@ -39,7 +51,7 @@ export default function ProductList() {
           searchInput={searchInput}
         />
         <div className={gridView ? 'cards' : 'list'}>
-          {data.map((item) => (
+          {search(data).map((item) => (
             <Link
               key={item.id}
               to={`/${item.id}`}

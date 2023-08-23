@@ -1,7 +1,6 @@
 import React from 'react';
 import ProductLineFilter from './ProductLineFilter.js';
 import './Toolbar.css';
-import SearchBar from './SearchBar.js';
 
 export default function Toolbar({
   productLines,
@@ -14,7 +13,14 @@ export default function Toolbar({
 }) {
   return (
     <div className="toolbar">
-      <div>{/* <SearchBar searchInput={searchInput} setSearchInput={setSearchInput} /> */}</div>
+      <div>
+        <input
+          type="search"
+          placeholder="Search here"
+          onChange={(e) => setSearchInput(e.target.value)}
+          value={searchInput}
+        />
+      </div>
       <div className="right">
         <img
           src={!gridView ? '/ListActive.png' : '/ListDefault.png'}
