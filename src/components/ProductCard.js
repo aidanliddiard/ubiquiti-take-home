@@ -11,14 +11,22 @@ export default function ProductCard({
   return (
     <>
       {!gridView && (
-        <div className="list">
-          <li key={id}>
+        <li key={id}>
+          <div className="list">
+            {/* <div className="img"> */}
             <img
               src={`https://static.ui.com/fingerprint/ui/icons/${imgId}_${imgDimensions[0][0]}x${imgDimensions[0][1]}.png`}
             />
-            {productName} {productLine}
-          </li>
-        </div>
+            {/* </div> */}
+            {/* <div className="productLine">
+              <p>{productLine}</p>
+            </div>
+            <div className="productName">
+              <p>{productName}</p>
+            </div> */}
+            {productLine} {productName}
+          </div>
+        </li>
       )}
       {gridView && (
         <div className="card">
