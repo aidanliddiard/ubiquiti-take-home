@@ -12,17 +12,19 @@ export default function ProductList() {
   const [loading, setLoading] = useState(true);
   const [productLines, setProductLines] = useState([]);
   const [selectedProductLine, setSelectedProductLine] = useState('All');
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
     const fetchData = async () => {
       const lines = await fetchProductLines();
       setProductLines(['All', ...lines]);
-      const resp = await filterDevicesByProductLine(selectedProductLine);
+      const resp = await filterDevicesByProductLine(selectedProductLine, searchInput);
+      console.log(resp);
       setData(resp);
       setLoading(false);
     };
     fetchData();
-  }, [selectedProductLine]);
+  }, [selectedProductLine, searchInput]);
   {
     if (loading) return <p>Loading...</p>;
     return (
@@ -33,6 +35,8 @@ export default function ProductList() {
           setSelectedProductLine={setSelectedProductLine}
           setGridView={setGridView}
           gridView={gridView}
+          setSearchInput={setSearchInput}
+          searchInput={searchInput}
         />
         <div className={gridView ? 'cards' : 'list'}>
           {data.map((item) => (
