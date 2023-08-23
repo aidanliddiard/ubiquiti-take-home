@@ -1,0 +1,27 @@
+.toolbar {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 15px;
+}
+.toolbar img {
+  width: 3vw;
+  height: 3vw;
+}
+
+.right {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+}
+
+.right h5 {
+  margin-block-start: 0px;
+  margin-block-end: 0px;
+}
+
+.right img {
+  padding: 5px;
+}
